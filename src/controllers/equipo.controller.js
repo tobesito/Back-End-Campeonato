@@ -17,7 +17,7 @@ export async function createEquipo(req, res) {
 
 export async function getEquipos(req, res) {
     const equipos = await Equipo.findAll({
-        attributes: ['nombre', 'paisRepresentado', 'club', 'entrenador'],
+        //attributes: ['nombre', 'paisRepresentado', 'club', 'entrenador'],
         order: [
             ['equipoid', 'DESC']
         ]
