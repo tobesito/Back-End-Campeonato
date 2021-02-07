@@ -26,9 +26,7 @@ export async function getPartidos(req, res) {
         include: [
             { model: Equipo, as: 'equipo1' },
             { model: Equipo, as: 'equipo2' },
-            // { model: Torneo }
         ],
-        attributes: ['fecha_hora', 'equipo1_id', 'equipo2_id', 'puntos_equipo1', 'puntos_equipo2', 'orden_partido', 'estado', 'etapa_id'],
         order: [
             ['partido_id', 'DESC']
         ]
@@ -42,7 +40,6 @@ export async function getOnePartido(req, res) {
         include: [
             { model: Equipo, as: 'equipo1' },
             { model: Equipo, as: 'equipo2' },
-            // { model: Torneo }
         ],
         where: {
             partido_id

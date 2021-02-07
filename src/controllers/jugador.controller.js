@@ -8,7 +8,7 @@ export async function createJugador(req, res) {
         equipo_id,
         posicion
     }, {
-        fields: ['nombre', 'equipo_id', 'posicion']
+        fields: ['nombre', 'posicion', 'equipo_id']
     });
     res.json({
         message: 'Se ha creado un nuevo Jugador exitosamente'
@@ -18,7 +18,6 @@ export async function createJugador(req, res) {
 export async function getJugadores(req, res) {
     const jugadores = await Jugador.findAll({
         include: [Equipo],
-        attributes: ['nombre', 'equipo_id', 'posicion'],
         order: [
             ['jugador_id', 'DESC']
         ]

@@ -23,9 +23,9 @@ const Jugador = sequelize.define('jugadores', {
 );
 
 //Relaciones "hasOne/hasMany"
-Jugador.hasOne(Equipo, { foreignKey: 'equipo_id', sourceKey: 'equipo_id' });
+Equipo.hasMany(Jugador, { foreignKey: 'equipo_id' });
 
 //Relaciones "belongsTo/belongsToMany"
-Equipo.belongsTo(Jugador, { foreignKey: 'equipo_id' });
+Jugador.belongsTo(Equipo, { foreignKey: 'equipo_id' });
 
 export default Jugador;
