@@ -3,18 +3,18 @@ import Partido from '../models/Partido';
 import Torneo from '../models/Torneo';
 
 export async function createPartido(req, res) {
-    const { fechaHora, equipo1id, equipo2id, puntosEquipo1, puntosEquipo2, ordenPartido, estado, torneoid } = req.body;
+    const { fecha_hora, equipo1_id, equipo2_id, puntos_equipo1, puntos_equipo2, orden_partido, estado, torneo_id } = req.body;
     const newPartido = await Partido.create({
-        fechaHora,
-        equipo1id,
-        equipo2id,
-        puntosEquipo1,
-        puntosEquipo2,
-        ordenPartido,
+        fecha_hora,
+        equipo1_id,
+        equipo2_id,
+        puntos_equipo1,
+        puntos_equipo2,
+        orden_partido,
         estado,
-        torneoid
+        torneo_id
     }, {
-        fields: ['fechaHora', 'equipo1id', 'equipo2id', 'puntosEquipo1', 'puntosEquipo2', 'ordenPartido', 'estado', 'torneoid']
+        fields: ['fecha_hora', 'equipo1_id', 'equipo2_id', 'puntos_equipo1', 'puntos_equipo2', 'orden_partido', 'estado', 'torneo_id']
     });
     res.json({
         message: 'Se ha creado una nueva Partido exitosamente'
@@ -26,26 +26,26 @@ export async function getPartidos(req, res) {
         include: [
             { model: Equipo, as: 'equipo1' },
             { model: Equipo, as: 'equipo2' },
-            { model: Torneo }
+            // { model: Torneo }
         ],
-        attributes: ['fechaHora', 'equipo1id', 'equipo2id', 'puntosEquipo1', 'puntosEquipo2', 'ordenPartido', 'estado', 'torneoid'],
+        attributes: ['fecha_hora', 'equipo1_id', 'equipo2_id', 'puntos_equipo1', 'puntos_equipo2', 'orden_partido', 'estado', 'etapa_id'],
         order: [
-            ['partidoid', 'DESC']
+            ['partido_id', 'DESC']
         ]
     });
     res.json(partidos);
 }
 
 export async function getOnePartido(req, res) {
-    const { partidoid } = req.params;
+    const { partido_id } = req.params;
     const partido = await Partido.findOne({
         include: [
             { model: Equipo, as: 'equipo1' },
             { model: Equipo, as: 'equipo2' },
-            { model: Torneo }
+            // { model: Torneo }
         ],
         where: {
-            partidoid
+            partido_id
         }
     });
 
@@ -53,10 +53,10 @@ export async function getOnePartido(req, res) {
 }
 
 export async function deletePartido(req, res) {
-    const { partidoid } = req.params;
+    const { partido_id } = req.params;
     await Partido.destroy({
         where: {
-            partidoid
+            partido_id
         }
     });
     res.json({
@@ -65,30 +65,30 @@ export async function deletePartido(req, res) {
 }
 
 export async function updatePartido(req, res) {
-    const { partidoid } = req.params;
-    const { fechaHora, equipo1id, equipo2id, puntosEquipo1, puntosEquipo2, ordenPartido, estado, torneoid } = req.body;
+    const { partido_id } = req.params;
+    const { fecha_hora, equipo1_id, equipo2_id, puntos_equipo1, puntos_equipo2, orden_partido, estado, torneo_id } = req.body;
 
     await Partido.findOne({
         include: [
             { model: Equipo, as: 'equipo1' },
             { model: Equipo, as: 'equipo2' },
-            { model: Torneo }
+            // { model: Torneo }
         ],
-        attributes: ['fechaHora', 'equipo1id', 'equipo2id', 'puntosEquipo1', 'puntosEquipo2', 'ordenPartido', 'estado', 'torneoid'],
-        where: { partidoid }
+        attributes: ['fecha_hora', 'equipo1_id', 'equipo2_id', 'puntos_equipo1', 'puntos_equipo2', 'orden_partido', 'estado', 'torneo_id'],
+        where: { partido_id }
     });
 
     const updatedPartido = await Partido.update({
-        fechaHora,
-        equipo1id,
-        equipo2id,
-        puntosEquipo1,
-        puntosEquipo2,
-        ordenPartido,
+        fecha_hora,
+        equipo1_id,
+        equipo2_id,
+        puntos_equipo1,
+        puntos_equipo2,
+        orden_partido,
         estado,
-        torneoid
+        etapa_id
     }, {
-        where: { partidoid }
+        where: { partido_id }
     });
 
     res.json({

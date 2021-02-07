@@ -2,13 +2,13 @@ import Equipo from '../models/Equipo';
 import Jugador from '../models/Jugador';
 
 export async function createJugador(req, res) {
-    const { nombre, equipoid, posicion } = req.body;
+    const { nombre, equipo_id, posicion } = req.body;
     const newJugador = await Jugador.create({
         nombre,
-        equipoid,
+        equipo_id,
         posicion
     }, {
-        fields: ['nombre', 'equipoid', 'posicion']
+        fields: ['nombre', 'equipo_id', 'posicion']
     });
     res.json({
         message: 'Se ha creado un nuevo Jugador exitosamente'
@@ -18,20 +18,20 @@ export async function createJugador(req, res) {
 export async function getJugadores(req, res) {
     const jugadores = await Jugador.findAll({
         include: [Equipo],
-        attributes: ['nombre', 'equipoid', 'posicion'],
+        attributes: ['nombre', 'equipo_id', 'posicion'],
         order: [
-            ['jugadorid', 'DESC']
+            ['jugador_id', 'DESC']
         ]
     });
     res.json(jugadores);
 }
 
 export async function getOneJugador(req, res) {
-    const { jugadorid } = req.params;
+    const { jugador_id } = req.params;
     const jugador = await Jugador.findOne({
         include: [Equipo],
         where: {
-            jugadorid
+            jugador_id
         }
     });
 
@@ -39,10 +39,10 @@ export async function getOneJugador(req, res) {
 }
 
 export async function deleteJugador(req, res) {
-    const { jugadorid } = req.params;
+    const { jugador_id } = req.params;
     await Jugador.destroy({
         where: {
-            jugadorid
+            jugador_id
         }
     });
     res.json({
@@ -51,21 +51,21 @@ export async function deleteJugador(req, res) {
 }
 
 export async function updateJugador(req, res) {
-    const { jugadorid } = req.params;
-    const { nombre, equipoid, posicion } = req.body;
+    const { jugador_id } = req.params;
+    const { nombre, equipo_id, posicion } = req.body;
 
     await Jugador.findOne({
         include: [Equipo],
-        attributes: ['nombre', 'equipoid', 'posicion'],
-        where: { jugadorid }
+        attributes: ['nombre', 'equipo_id', 'posicion'],
+        where: { jugador_id }
     });
 
     const updatedJugador = await Jugador.update({
         nombre,
-        equipoid,
+        equipo_id,
         posicion
     }, {
-        where: { jugadorid }
+        where: { jugador_id }
     });
 
     res.json({

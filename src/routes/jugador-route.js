@@ -7,10 +7,10 @@ const router = Router();
 router.post('/', createJugador);
 router.get('/', getJugadores);
 
-// api/jugadores/:jugadorid
-router.get('/:jugadorid', getOneJugador);
-router.delete('/:jugadorid', deleteJugador);
-router.put('/:jugadorid', updateJugador);
+// api/jugadores/:jugador_id
+router.get('/:jugador_id', getOneJugador);
+router.delete('/:jugador_id', deleteJugador);
+router.put('/:jugador_id', updateJugador);
 
 
 export default router;

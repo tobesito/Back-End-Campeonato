@@ -7,10 +7,10 @@ const router = Router();
 router.post('/', createTorneo);
 router.get('/', getTorneos);
 
-// api/torneos/:torneoid
-router.get('/:torneoid', getOneTorneo);
-router.delete('/:torneoid', deleteTorneo);
-router.put('/:torneoid', updateTorneo);
+// api/torneos/:torneo_id
+router.get('/:torneo_id', getOneTorneo);
+router.delete('/:torneo_id', deleteTorneo);
+router.put('/:torneo_id', updateTorneo);
 
 
 export default router;

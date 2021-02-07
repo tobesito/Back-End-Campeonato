@@ -2,35 +2,35 @@ import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
 
 import Equipo from './Equipo';
-import Torneo from './Torneo';
+import Etapa from './Etapa';
 
 const Partido = sequelize.define('partidos', {
-    partidoid: {
+    partido_id: {
         type: Sequelize.INTEGER,
         primaryKey: true
     },
-    fechaHora: {
+    fecha_hora: {
         type: Sequelize.DATE
     },
-    equipo1id: {
-        type: Sequelize.INTEGER
-    },
-    equipo2id: {
-        type: Sequelize.INTEGER
-    },
-    puntosEquipo1: {
-        type: Sequelize.INTEGER
-    },
-    puntosEquipo2: {
-        type: Sequelize.INTEGER
-    },
-    ordenPartido: {
+    orden_partido: {
         type: Sequelize.INTEGER
     },
     estado: {
         type: Sequelize.STRING
     },
-    torneoid: {
+    puntos_equipo1: {
+        type: Sequelize.INTEGER
+    },
+    puntos_equipo2: {
+        type: Sequelize.INTEGER
+    },
+    equipo1_id: {
+        type: Sequelize.INTEGER
+    },
+    equipo2_id: {
+        type: Sequelize.INTEGER
+    },
+    etapa_id: {
         type: Sequelize.INTEGER
     },
 },
@@ -40,16 +40,16 @@ const Partido = sequelize.define('partidos', {
 );
 
 //Relaciones "hasOne/hasMany"
-Partido.hasOne(Equipo, { foreignKey: 'equipoid', sourceKey: 'equipo1id', as: 'equipo1' });
-Partido.hasOne(Equipo, { foreignKey: 'equipoid', sourceKey: 'equipo2id', as: 'equipo2' });
+Partido.hasOne(Equipo, { foreignKey: 'equipo_id', sourceKey: 'equipo1_id', as: 'equipo1' });
+Partido.hasOne(Equipo, { foreignKey: 'equipo_id', sourceKey: 'equipo2_id', as: 'equipo2' });
 
-Partido.hasOne(Torneo, { foreignKey: 'torneoid', sourceKey: 'torneoid' });
+Etapa.hasMany(Partido, { foreignKey: 'etapa_id' });
 
 //Relaciones "belongsTo/belongsToMany"
-Equipo.belongsTo(Partido, { foreignKey: 'equipoid', as: 'equipo1' });
-Equipo.belongsTo(Partido, { foreignKey: 'equipoid', as: 'equipo2' });
+Equipo.belongsTo(Partido, { foreignKey: 'equipo_id', as: 'equipo1' });
+Equipo.belongsTo(Partido, { foreignKey: 'equipo_id', as: 'equipo2' });
 
-Torneo.belongsTo(Partido, { foreignKey: 'torneoid' });
+Partido.belongsTo(Etapa, { foreignKey: 'etapa_id' });
 
 
 export default Partido;

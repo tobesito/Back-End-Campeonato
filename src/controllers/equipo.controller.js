@@ -1,14 +1,14 @@
 import Equipo from '../models/Equipo';
 
 export async function createEquipo(req, res) {
-    const { nombre, paisRepresentado, club, entrenador } = req.body;
+    const { nombre, pais_representado, club, entrenador } = req.body;
     const newEquipo = await Equipo.create({
         nombre,
-        paisRepresentado,
+        pais_representado,
         club,
         entrenador
     }, {
-        fields: ['nombre', 'paisRepresentado', 'club', 'entrenador']
+        fields: ['nombre', 'pais_representado', 'club', 'entrenador']
     });
     res.json({
         message: 'Se ha creado un nuevo Equipo exitosamente'
@@ -17,19 +17,19 @@ export async function createEquipo(req, res) {
 
 export async function getEquipos(req, res) {
     const equipos = await Equipo.findAll({
-        //attributes: ['nombre', 'paisRepresentado', 'club', 'entrenador'],
+        //attributes: ['nombre', 'pais_representado', 'club', 'entrenador'],
         order: [
-            ['equipoid', 'DESC']
+            ['equipo_id', 'DESC']
         ]
     });
     res.json(equipos);
 }
 
 export async function getOneEquipo(req, res) {
-    const { equipoid } = req.params;
+    const { equipo_id } = req.params;
     const equipo = await Equipo.findOne({
         where: {
-            equipoid
+            equipo_id
         }
     });
 
@@ -37,10 +37,10 @@ export async function getOneEquipo(req, res) {
 }
 
 export async function deleteEquipo(req, res) {
-    const { equipoid } = req.params;
+    const { equipo_id } = req.params;
     await Equipo.destroy({
         where: {
-            equipoid
+            equipo_id
         }
     });
     res.json({
@@ -49,21 +49,21 @@ export async function deleteEquipo(req, res) {
 }
 
 export async function updateEquipo(req, res) {
-    const { equipoid } = req.params;
-    const { nombre, paisRepresentado, club, entrenador } = req.body;
+    const { equipo_id } = req.params;
+    const { nombre, pais_representado, club, entrenador } = req.body;
 
     await Equipo.findOne({
-        attributes: ['nombre', 'paisRepresentado', 'club', 'entrenador'],
-        where: { equipoid }
+        attributes: ['nombre', 'pais_representado', 'club', 'entrenador'],
+        where: { equipo_id }
     });
 
     const updatedEquipo = await Equipo.update({
         nombre,
-        paisRepresentado,
+        pais_representado,
         club,
         entrenador
     }, {
-        where: { equipoid }
+        where: { equipo_id }
     });
 
     res.json({

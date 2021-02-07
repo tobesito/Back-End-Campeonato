@@ -7,10 +7,10 @@ const router = Router();
 router.post('/', createEquipo);
 router.get('/', getEquipos);
 
-// api/equipos/:equipoid
-router.get('/:equipoid', getOneEquipo);
-router.delete('/:equipoid', deleteEquipo);
-router.put('/:equipoid', updateEquipo);
+// api/equipos/:equipo_id
+router.get('/:equipo_id', getOneEquipo);
+router.delete('/:equipo_id', deleteEquipo);
+router.put('/:equipo_id', updateEquipo);
 
 
 export default router;

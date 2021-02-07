@@ -1,13 +1,13 @@
 import Etapa from '../models/Etapa';
 
 export async function createEtapa(req, res) {
-    const { nombre, siguienteEtapaid, anteriorEtapaid } = req.body;
+    const { nombre, siguiente_etapa_id, anterior_etapa_id, torneo_id } = req.body;
     const newEtapa = await Etapa.create({
         nombre,
-        siguienteEtapaid,
-        anteriorEtapaid
+        siguiente_etapa_id,
+        anterior_etapa_id
     }, {
-        fields: ['nombre', 'siguienteEtapaid', 'anteriorEtapaid']
+        fields: ['nombre', 'siguiente_etapa_id', 'anterior_etapa_id', 'torneo_id']
     });
     res.json({
         message: 'Se ha creado una nueva Etapa exitosamente'
@@ -18,23 +18,23 @@ export async function getEtapas(req, res) {
     const etapas = await Etapa.findAll({
         include: [
             { model: Etapa, as: 'etapaAnterior',
-            attributes: ['etapaid', 'nombre'] },
+            attributes: ['etapa_id', 'nombre'] },
             { model: Etapa, as: 'etapaSiguiente',
-            attributes: ['etapaid', 'nombre'] }
+            attributes: ['etapa_id', 'nombre'] }
         ],
-        attributes: ['etapaid', 'nombre', 'siguienteEtapaid', 'anteriorEtapaid'],
+        attributes: ['etapa_id', 'nombre', 'siguiente_etapa_id', 'anterior_etapa_id'],
         order: [
-            ['etapaid', 'DESC']
+            ['etapa_id', 'DESC']
         ]
     });
     res.json(etapas);
 }
 
 export async function getOneEtapa(req, res) {
-    const { etapaid } = req.params;
+    const { etapa_id } = req.params;
     const etapa = await Etapa.findOne({
         where: {
-            etapaid
+            etapa_id
         }
     });
 
@@ -42,10 +42,10 @@ export async function getOneEtapa(req, res) {
 }
 
 export async function deleteEtapa(req, res) {
-    const { etapaid } = req.params;
+    const { etapa_id } = req.params;
     await Etapa.destroy({
         where: {
-            etapaid
+            etapa_id
         }
     });
     res.json({
@@ -54,20 +54,20 @@ export async function deleteEtapa(req, res) {
 }
 
 export async function updateEtapa(req, res) {
-    const { etapaid } = req.params;
-    const { nombre, siguienteEtapaid, anteriorEtapaid } = req.body;
+    const { etapa_id } = req.params;
+    const { nombre, siguiente_etapa_id, anterior_etapa_id } = req.body;
 
     await Etapa.findOne({
-        attributes: ['nombre', 'siguienteEtapaid', 'anteriorEtapaid'],
-        where: { etapaid }
+        attributes: ['nombre', 'siguiente_etapa_id', 'anterior_etapa_id'],
+        where: { etapa_id }
     });
 
     const updatedEtapa = await Etapa.update({
         nombre,
-        siguienteEtapaid,
-        anteriorEtapaid
+        siguiente_etapa_id,
+        anterior_etapa_id
     }, {
-        where: { etapaid }
+        where: { etapa_id }
     });
 
     res.json({

@@ -3,14 +3,14 @@ import { sequelize } from '../database/database';
 import Equipo from './Equipo';
 
 const Jugador = sequelize.define('jugadores', {
-    jugadorid: {
+    jugador_id: {
         type: Sequelize.INTEGER,
         primaryKey: true
     },
     nombre: {
         type: Sequelize.STRING
     },
-    equipoid: {
+    equipo_id: {
         type: Sequelize.INTEGER
     },
     posicion: {
@@ -23,9 +23,9 @@ const Jugador = sequelize.define('jugadores', {
 );
 
 //Relaciones "hasOne/hasMany"
-Jugador.hasOne(Equipo, { foreignKey: 'equipoid', sourceKey: 'equipoid' });
+Jugador.hasOne(Equipo, { foreignKey: 'equipo_id', sourceKey: 'equipo_id' });
 
 //Relaciones "belongsTo/belongsToMany"
-Equipo.belongsTo(Jugador, { foreignKey: 'equipoid' });
+Equipo.belongsTo(Jugador, { foreignKey: 'equipo_id' });
 
 export default Jugador;

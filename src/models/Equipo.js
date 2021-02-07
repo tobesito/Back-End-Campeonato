@@ -2,14 +2,14 @@ import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
 
 const Equipo = sequelize.define('equipos', {
-    equipoid: {
+    equipo_id: {
         type: Sequelize.INTEGER,
         primaryKey: true
     },
     nombre: {
         type: Sequelize.STRING
     },
-    paisRepresentado: {
+    pais_representado: {
         type: Sequelize.STRING
     },
     club: {
