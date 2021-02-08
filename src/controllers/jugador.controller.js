@@ -72,3 +72,12 @@ export async function updateJugador(req, res) {
         updatedJugador
     });
 }
+
+export async function getJugadorByEquipo(req, res) {
+    const { equipo_id } = req.params;
+    const tasks = await Task.findAll({
+        attributes: ['id', 'projectid', 'done', 'name'],
+        where: { equipo_id }
+    });
+    res.json({ tasks });
+}
