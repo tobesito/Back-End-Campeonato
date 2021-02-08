@@ -51,6 +51,9 @@ export async function getOneTorneo(req, res) {
                                 Jugador
                             ]
                         }
+                    ],
+                    order: [
+                        ['orden_partido']
                     ]
                 }
             ]
